@@ -1,142 +1,98 @@
 /*************************************************************************
- *  Compilation:  javac GenericLinkedList.java
- *  Execution:    java GenericLinkedList 
+ *  Compilation:  javac IntLinkedList.java
+ *  Execution:    java IntLinkedList n  (n is the max size of the list)
  *
  *  @author: Andy Guna
  *
- *  This is a demo program to understand Generic LL operations and Big O
+ *  This is a demo program to understand LL operations and Big O
  *
  *************************************************************************/
 
-import java.util.NoSuchElementException;
-
- class Node<T> {   // Node class has a generic type parameter T
-  T data;
-  Node<T> next;
-
-  public Node(T data, Node<T> next) { // constructor name does NOT have a <T> next to it
-    this.data = data;
-    this.next = next;
-  }
-
-  public String toString() {
-    return data.toString();
-  }
-}
-
-
-public class GenericLinkedList<T> {
-
-  Node<T> front;
-  int size;
-
-  public GenericLinkedList() {  // empty linked list to start with
-    front = null;
-    size = 0;
-  }
-
-  public void addFront(T item) {
-    front = new Node<T>(item, front);
-    size++;
-  }
-
-  public void deleteFront() 
-      throws NoSuchElementException {
-    if (front == null) {
-      //throw new NoSuchElementException();
-      throw new NoSuchElementException("Can't delete from an empty list");
-    }
-    front = front.next;
-    size--;
-  }
-
-  public boolean search(T target) {
-    for (Node<T> ptr=front; ptr != null; ptr=ptr.next) {
-      if (target.equals(ptr.data)) {
-        return true;
+public class IntLinkedList {
+  //create a node class
+  private static class Node {
+      int data;
+      Node next;
+      // constructor
+      public Node(int n, Node ptr ){
+        data = n;
+        next = ptr;
       }
-    }
-    return false;
+
+      public String toString(){
+        return "data:" + data ;
+      }
+  } 
+
+  /* check LL invariants */
+  public static boolean isLL() {
+       return true;
   }
 
-  // while loop version, stylized single-line output
-  public void traverse() {
-    if (front == null) {
-      System.out.println("Empty list");
-      return;
-    }
-    System.out.print(front.data);  // first item
-    Node<T> ptr=front.next;    // prepare to loop starting with second item
-    while (ptr != null) {
-      System.out.print(" --> " + ptr.data);
-      ptr = ptr.next;
-    }
-    System.out.println();
+  /*
+      ADD A FRONT NODE
+      input: 
+      output: 
+      return : 
+      Big O : 
+  */
+  public static Node addFront(Node front, int data) {
+    return null;
   }
 
-  public T getFront() 
-      throws NoSuchElementException {
-    if (front == null) {
-      //throw new NoSuchElementException();
-      throw new NoSuchElementException("Can't get at front of an empty list");
-    }
-    return front.data;
+  /*
+      DELETE FRONT NODE
+      input: 
+      output: 
+      return : 
+      Big O : 
+  */
+  public static Node deleteFront(Node front) {
+    return null;
   }
 
-  public int getSize() {
-    return size;
+  /*
+      TRAVERSE THE LIST
+      input: 
+      output: 
+      Return : 
+      Big O : 
+  */
+  public static void traverse(Node front) {
+    for (Node ptr=front; ptr!=null; ptr=ptr.next)
+      // System.out.println(ptr.data);
+      System.out.println(ptr);
   }
 
-  public boolean isEmpty() {
-    return size == 0;
+  /*
+      SEARCH THE LIST
+      input: 
+      output : 
+      return: 
+      Big O : 
+  */
+  public static boolean search(Node front, int target){
+    return true;
   }
 
-  public static void main(String[] args) {
-
-    // set up a linked list of Strings
-    GenericLinkedList<String> strLL = new GenericLinkedList<>();
-    strLL.addFront("cs112");
-    strLL.addFront("cs111"); 
-    strLL.traverse();
-    strLL.deleteFront();
-    strLL.traverse();
-    boolean found = strLL.search("cs112");
-    if (found) {
-      System.out.println("found \"cs112\"\n");
-    }
-
-    // set up a linked list of integers
-    GenericLinkedList<Integer> intll = new GenericLinkedList<>();
-    int x=5;
-    intll.addFront(x);  // auto boxes value of x into an Integer object
-    intll.addFront(15); // auto boxes -15 into an Integer object
-    intll.addFront(-10);  // auto boxes -10 into an Integer object
-
-
-
-    intll.traverse();
-
-    x = intll.getFront();  // auto unboxes returned object into a primitive
-    System.out.println("front = " + x);
-
-    try {
-      System.out.println("\ndeleting front");
-      intll.deleteFront();
-      intll.traverse();
-      System.out.println("\ndeleting front");
-      intll.deleteFront();
-      intll.traverse();
-      System.out.println("\ndeleting front");
-      intll.deleteFront();
-      intll.traverse();
-      System.out.println("\ndeleting front");
-      
-      intll.deleteFront(); // trying to delete from an empty list
-      
-      System.out.println("DONE!");
-    } catch (NoSuchElementException e) {
-      System.out.println(e.getMessage());
-    } 
+  /* Driver program to test LL methods */
+  public static void main(String[] args)
+  {
+     //int key = Integer.parseInt(args[0]);  
+    Node front = new Node(12,null);
+    Node N = new Node(24,null);
+    front.next =  N;
+   // traverse(front);
+    N = new Node(15, null);
+    // insert between 12 and 24
+    N.next = front.next;
+    front.next = N;
+     //N.next = front.next;  <--- dont do this :(
+    // delete the last node
+     front.next.next = null;
+     traverse(front);
   }
 
 }
+         
+  
