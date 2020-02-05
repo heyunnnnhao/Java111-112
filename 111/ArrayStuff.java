@@ -24,7 +24,7 @@ public class ArrayStuff {
     //compress wwwwweeeeerrr to 5w5e3r
     public static String compress (String str){
 		
-		int count = 0, tmp;
+		int count = 0;
 		String temp = "";
 
       	for(int i = 0; i < str.length(); i++){

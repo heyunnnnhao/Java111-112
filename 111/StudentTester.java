@@ -8,7 +8,8 @@ public class StudentTester {
 		System.out.println(s1.getEmail());
 		s1.setName("I don't", "know");
 		s1.setGender("no one cares");
-		s1.setAge(69);
+		s2.setAge(69);
+		System.out.println(s2.getInfo());
 		System.out.println(s1.getInfo());
     	
     }
