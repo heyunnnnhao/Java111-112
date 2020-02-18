@@ -79,8 +79,8 @@ public class Polynomial {
 	}	
 	
 	public static Node multiply(Node poly1, Node poly2) {
-	
-	Node pMult = new Node(0, 0, null);
+        
+        Node pMult = new Node(0, 0, null);
         Node thisPol = poly1;      
         
         while(thisPol != null)
@@ -104,7 +104,6 @@ public class Polynomial {
         }
         
         return pMult;
-       
 	}		
 	
 	public static float evaluate(Node poly, float x) {
