@@ -79,65 +79,32 @@ public class Polynomial {
 	}	
 	
 	public static Node multiply(Node poly1, Node poly2) {
-		
-        Node pMult = new Node(0, 0, null);
-        Node create = pMult;
-        Node entered = poly2;
-        Node thisPol = poly1;
-
-        int high = 0;
-        int low = 999999;
-
-        while (entered != null) {
-            thisPol = poly1;
-            while (thisPol != null) {
-                if (thisPol.term.degree + entered.term.degree > high)
-                    high = thisPol.term.degree + entered.term.degree;
-                if (thisPol.term.degree + entered.term.degree < low)
-                    low = thisPol.term.degree + entered.term.degree;
-                
-                thisPol = thisPol.next;
+	
+	Node pMult = new Node(0, 0, null);
+        Node thisPol = poly1;      
+        
+        while(thisPol != null)
+        {
+            Node entered = poly2;
+            Node temp = new Node(0, 0, null);
+            Node tempCurr = temp;
+            
+            while(entered != null)
+            {
+                tempCurr.term.degree = thisPol.term.degree + entered.term.degree;
+                tempCurr.term.coeff = thisPol.term.coeff * entered.term.coeff;
+                if((thisPol.next != null) || (entered.next != null))
+                    tempCurr.next = new Node(0, 0, null);
+                tempCurr = tempCurr.next;
+                entered = entered.next;
             }
             
-            entered = entered.next;
+            thisPol = thisPol.next;
+            pMult = add(pMult, temp);
         }
-
-        entered = poly2;
-        for (int i = low; i <= high; i++) {
-            create.term.degree = i;
-            create.term.coeff = 0;
-            
-            create.next = new Node (0, 0, null);
-            create = create.next;
-        }
-
-        entered = poly2;
-        while (entered != null) {
-            thisPol = poly1;
-            while (thisPol != null) {
-                int degree = entered.term.degree + thisPol.term.degree;
-                create = pMult;
-                while (create != null) {
-                    if (create.term.degree == degree) {
-                        create.term.coeff = entered.term.coeff * thisPol.term.coeff;
-                    }
-                    create = create.next;
-                }
-                thisPol = thisPol.next;
-            }
-            entered = entered.next;
-        }
-
-        create = pMult;
-        while (create != null) {
-            if (create.term.degree == high) {
-                create.next = null;
-                create = create.next;
-            }
-            else
-                create = create.next;
-        }
+        
         return pMult;
+       
 	}		
 	
 	public static float evaluate(Node poly, float x) {
